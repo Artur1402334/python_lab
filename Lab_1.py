@@ -7,8 +7,6 @@ WHITE = '\u001b[47m'
 YELLOW = '\u001b[43m'
 GREEN = '\u001b[42m'
 RESET = '\u001b[0m'
-ERASE = '\x1B[2K'
-BEGIN = '\x1B[1G'
 
 
 def flag():
@@ -72,7 +70,46 @@ def sequence():
     print(f'{WHITE}{" " * int(second_avg / total * 100)}{RESET} {second_avg / total * 100:.2f}%')
 
 
-flag()
-animation()
-pattern()
-sequence()
+def graph():
+    plot_list = [[0 for i in range(10)] for i in range(10)]
+    result = [0 for i in range(10)]
+
+    for i in range(10):
+        result[i] = i ** 0.5
+
+# шаг по оси Y (без округления, чтобы график не "уезжал")
+    step = abs(result[9] - result[0]) / 9
+    print(round(step, 2))
+
+# первый столбец каждой строки: значение Y для этой строки
+    for i in range(10):
+        for j in range(10):
+            if j == 0:
+                plot_list[i][j] = step * (8 - i) + step
+
+# ставим точки: в столбец x, если f(x) попадает в "полосу" этой строки
+    for i in range(9):
+        for j in range(10):
+            if abs(plot_list[i][0] - result[9 - j]) < step /2 :
+                for k in range(9):
+                    if 8 - k == j:
+                        plot_list[i][k + 1] = 1
+
+    for i in range(9):
+        line = ''
+        for j in range(10):
+            if j == 0:
+                line += '\t' + str(round(plot_list[i][j], 1)) + '\t'
+            elif plot_list[i][j] == 0:
+                line += '--'
+            elif plot_list[i][j] == 1:
+                line += '!!'
+        print(line)
+    print('\t0\t1 2 3 4 5 6 7 8 9')
+
+
+# flag()
+# animation()
+# pattern()
+# sequence()
+# graph()
