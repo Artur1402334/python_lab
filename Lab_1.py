@@ -77,17 +77,14 @@ def graph():
     for i in range(10):
         result[i] = i ** 0.5
 
-# шаг по оси Y (без округления, чтобы график не "уезжал")
     step = abs(result[9] - result[0]) / 9
     print(round(step, 2))
 
-# первый столбец каждой строки: значение Y для этой строки
     for i in range(10):
         for j in range(10):
             if j == 0:
                 plot_list[i][j] = step * (8 - i) + step
 
-# ставим точки: в столбец x, если f(x) попадает в "полосу" этой строки
     for i in range(9):
         for j in range(10):
             if abs(plot_list[i][0] - result[9 - j]) < step /2 :
