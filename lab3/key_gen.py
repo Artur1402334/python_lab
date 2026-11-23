@@ -21,7 +21,6 @@ ANIMATION_DELAY = 60
 
 SYMBOLS = ascii_uppercase + digits
 
-# Веса символов: A=1 ... Z=26, цифра весит своё значение
 WEIGHTS = {}
 for number, letter in enumerate(ascii_uppercase, start=1):
     WEIGHTS[letter] = number
@@ -43,7 +42,7 @@ def generate_key():
 
 def animate(step, final_key):
     if step < ANIMATION_STEPS:
-        # Пока кадры не закончились, показываем случайный «мусор»
+        # Пока кадры не закончились, показываем случайный мусор
         blocks = []
         for _ in range(BLOCKS_COUNT):
             blocks.append(''.join(random.choices(SYMBOLS, k=BLOCK_LENGTH)))
